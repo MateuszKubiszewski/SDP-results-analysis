@@ -1,0 +1,11 @@
+track 1
+trabka azymut
+kaczka elewacja
+
+track 2
+szum azymut
+szum elewacja
+
+track 3
+wsciekly azymut
+slodki elewacja
