@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from helpers.data_peparation import \
+from helpers.data_preparation import \
     get_data_for_each_orientation_type, \
     get_data_for_each_sound_type
 

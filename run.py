@@ -1,4 +1,4 @@
-import helpers.data_peparation as preparation
+import helpers.data_preparation as preparation
 import helpers.stats as stats
 
 
