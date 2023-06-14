@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 from helpers.data_peparation import \
@@ -10,10 +9,40 @@ from helpers.funs import \
     get_average_distance, \
     get_distance_quantiles, \
     get_percentage_of_mistakes_lower_than, \
-    print_stats
+    print_stats, \
+    print_stats_no_microphones
 
 
-def save_average_distance_statistics_for_sounds(binaural_df: pd.DataFrame, ambeo_df: pd.DataFrame, zylia_df: pd.DataFrame):
+def save_average_distance_statistics_for_sounds(original_df: pd.DataFrame):
+    trumpet, duck, noise, angry, sweet = get_data_for_each_sound_type(original_df)
+    noise_az, noise_el = get_data_for_each_orientation_type(noise)
+
+    trumpet_avg, duck_avg, noise_az_avg, noise_el_avg, angry_avg, sweet_avg = get_average_distance([
+        trumpet, duck, noise_az, noise_el, angry, sweet
+    ])
+
+    print_stats_no_microphones(
+        "Average distance across sounds [Trumpet, Duck, Noise AZ, Noise EL, Angry, Sweet]",
+        [trumpet_avg, duck_avg, noise_az_avg, noise_el_avg, angry_avg, sweet_avg]
+    )
+
+    plotdata = pd.DataFrame({
+            "avg_dist": [trumpet_avg, duck_avg, noise_az_avg, noise_el_avg, angry_avg, sweet_avg]
+        },
+        index = ["Trumpet [Azimuth]", "Duck [Elevation]", "Noise [Azimuth]",
+                 "Noise [Elevation]", "Angry [Azimuth]", "Sweet [Elevation]"]
+    )
+    
+    plotdata.plot(kind = "bar", legend = False)
+    plt.legend(bbox_to_anchor = (1.0, 1.0))
+    plt.title("Average distance across sounds")
+    plt.xlabel("Microphone Type")
+    plt.ylabel("Average distance [degrees]")
+    plt.ylim([0, 120])
+    plt.savefig("./results/average_distances_sounds.png", bbox_inches="tight")
+
+
+def save_average_distance_statistics_for_microphones_sounds(binaural_df: pd.DataFrame, ambeo_df: pd.DataFrame, zylia_df: pd.DataFrame):
     bin_trumpet, bin_duck, bin_noise, bin_angry, bin_sweet = get_data_for_each_sound_type(binaural_df)
     bin_noise_az, bin_noise_el = get_data_for_each_orientation_type(bin_noise)
 
@@ -83,7 +112,7 @@ def save_average_distance_statistics_for_sounds(binaural_df: pd.DataFrame, ambeo
     plt.xlabel("Microphone Type")
     plt.ylabel("Average distance [degrees]")
     plt.ylim([0, 120])
-    plt.savefig("./results/average_distances_sounds.png", bbox_inches="tight")
+    plt.savefig("./results/average_distances_microphones_sounds.png", bbox_inches="tight")
 
 
 def save_average_distance_statistics_for_microphones(binaural: pd.DataFrame, ambeo: pd.DataFrame, zylia: pd.DataFrame):
@@ -131,17 +160,11 @@ def save_average_distance_statistics_for_microphones(binaural: pd.DataFrame, amb
 
 
 def save_quantile_statistics(original_df: pd.DataFrame, binaural_df: pd.DataFrame, ambeo_df: pd.DataFrame, zylia_df: pd.DataFrame):
-    q1, q2, q3 = get_distance_quantiles(original_df)
+    q1, q2, q3 = get_distance_quantiles([original_df]).pop()
 
-    binaural_q1 = get_percentage_of_mistakes_lower_than(binaural_df, q1)
-    binaural_q2 = get_percentage_of_mistakes_lower_than(binaural_df, q2)
-    binaural_q3 = get_percentage_of_mistakes_lower_than(binaural_df, q3)
-    ambeo_q1 = get_percentage_of_mistakes_lower_than(ambeo_df, q1)
-    ambeo_q2 = get_percentage_of_mistakes_lower_than(ambeo_df, q2)
-    ambeo_q3 = get_percentage_of_mistakes_lower_than(ambeo_df, q3)
-    zylia_q1 = get_percentage_of_mistakes_lower_than(zylia_df, q1)
-    zylia_q2 = get_percentage_of_mistakes_lower_than(zylia_df, q2)
-    zylia_q3 = get_percentage_of_mistakes_lower_than(zylia_df, q3)
+    binaural_q1, binaural_q2, binaural_q3 = get_percentage_of_mistakes_lower_than(binaural_df, [q1, q2, q3])
+    ambeo_q1, ambeo_q2, ambeo_q3 = get_percentage_of_mistakes_lower_than(ambeo_df, [q1, q2, q3])
+    zylia_q1, zylia_q2, zylia_q3 = get_percentage_of_mistakes_lower_than(zylia_df, [q1, q2, q3])
 
     print_stats(
         "Percentage of mistakes lower than quantile",

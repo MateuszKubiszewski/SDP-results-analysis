@@ -13,3 +13,9 @@ slodki elewacja
 statystyki
 
 ten sam mikrofon - rozne dzwieki - porownanie bledow
+
+obserwacje
+
+ambeo przyjemniejszy niz binauralny
+elewacja powoduje duza dezorientacje
+sluchacz testu przy binauralnym [pierwszy] nie wie o co chodzi, przy ambeo jest ok, a przy zylii [ostatni] zmeczony zyciem
