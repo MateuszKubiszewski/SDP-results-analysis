@@ -34,7 +34,6 @@ def save_average_distance_statistics_for_sounds(original_df: pd.DataFrame):
     )
     
     plotdata.plot(kind = "bar", legend = False)
-    plt.legend(bbox_to_anchor = (1.0, 1.0))
     plt.title("Average distance across sounds")
     plt.xlabel("Microphone Type")
     plt.ylabel("Average distance [degrees]")
