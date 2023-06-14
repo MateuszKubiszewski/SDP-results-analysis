@@ -9,3 +9,7 @@ szum elewacja
 track 3
 wsciekly azymut
 slodki elewacja
+
+statystyki
+
+ten sam mikrofon - rozne dzwieki - porownanie bledow

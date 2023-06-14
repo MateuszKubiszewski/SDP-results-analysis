@@ -1,15 +1,26 @@
 from enum import Enum
 
-class MicrophoneTypeEnum(str, Enum):
+class Column(str, Enum):
+    MICROPHONE = "MICROPHONE"
+    ORIENTATION = "ORIENTATION"
+    SOUND = "SOUND"
+    ANGLE = "ANGLE"
+    ANSWER = "ANSWER"
+    PERSON = "PERSON"
+    DISTANCE = "DISTANCE"
+    DISTANCE_A = "DISTANCE_A"
+    DISTANCE_B = "DISTANCE_B"
+
+class MicrophoneType(str, Enum):
     BINAURAL = "BINAURAL"
     AMBEO = "AMBEO"
     ZYLIA = "ZYLIA"
 
-class OrientationTypeEnum(str, Enum):
+class OrientationType(str, Enum):
     AZIMUTH = "AZIMUTH"
     ELEVATION = "ELEVATION"
 
-class SoundTypeEnum(str, Enum):
+class SoundType(str, Enum):
     TRUMPET = "TRUMPET"
     DUCK = "DUCK"
     NOISE = "NOISE"
