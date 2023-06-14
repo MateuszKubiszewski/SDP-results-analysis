@@ -7,6 +7,8 @@ if __name__ == "__main__":
 
     binaural_df, ambeo_df, zylia_df = preparation.get_data_for_each_microphone_type(data)
 
-    stats.save_average_distance_statistics(binaural_df, ambeo_df, zylia_df)
-
     stats.save_quantile_statistics(data, binaural_df, ambeo_df, zylia_df)
+
+    stats.save_average_distance_statistics_for_microphones(binaural_df, ambeo_df, zylia_df)
+    
+    stats.save_average_distance_statistics_for_sounds(binaural_df, ambeo_df, zylia_df)
