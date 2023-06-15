@@ -14,6 +14,14 @@ def get_data_for_each_microphone_type(df: pd.DataFrame) -> Tuple[pd.DataFrame, p
     )
 
 
+def get_data_for_each_microphone_type_no_sweet_cat(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    return (
+        df.loc[(df[Column.MICROPHONE] == MicrophoneType.BINAURAL) & (df[Column.SOUND] != SoundType.SWEET)],
+        df.loc[(df[Column.MICROPHONE] == MicrophoneType.AMBEO) & (df[Column.SOUND] != SoundType.SWEET)],
+        df.loc[(df[Column.MICROPHONE] == MicrophoneType.ZYLIA) & (df[Column.SOUND] != SoundType.SWEET)]
+    )
+
+
 def get_data_for_each_orientation_type(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     return (
         df.loc[df[Column.ORIENTATION] == OrientationType.AZIMUTH],

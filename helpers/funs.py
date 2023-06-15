@@ -11,6 +11,11 @@ def get_average_distance(dfs: List[pd.DataFrame]) -> List[float]:
     return [np.round(np.mean(distance_data), 2) for distance_data in distances_data]
 
 
+def get_distance_std_dev(dfs: List[pd.DataFrame]) -> List[float]:
+    distances_data = [df[Column.DISTANCE].values for df in dfs]
+    return [np.round(np.std(distance_data), 2) for distance_data in distances_data]
+
+
 def get_distance_quantiles(dfs: List[pd.DataFrame]) -> List[Tuple[float, float, float]]:
     distances_columns = [df[Column.DISTANCE] for df in dfs]
     return [distances_column.quantile([0.25, 0.50, 0.75]) for distances_column in distances_columns]
